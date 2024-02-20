@@ -1,0 +1,31 @@
+name: Save - config
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  release-binaries:
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+
+    steps:
+
+        - name: Configure AWS credentials
+          run: |
+            cd $HOME; mkdir ~/.aws; touch ~/.aws/credentials; touch ~/.aws/config
+            echo "[default]
+            aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID_CF }}
+            aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY_CF }}" > ~/.aws/credentials
+            echo "[default]
+            region=auto
+            output=json"  > ~/.aws/config
+
+            
+
+
+
