@@ -13,6 +13,11 @@ jobs:
       EXTERNAL_REPO: ${{ secrets.EXTERNAL_REPO }}
 
     steps:
+      - name: Checkout axelar-configs repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  
+
       - name: Checkout external repository
         uses: actions/checkout@v4
         with:
