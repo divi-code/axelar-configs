@@ -1,0 +1,24 @@
+name: Test 
+
+on:
+  push:
+
+jobs:
+  update-config:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CHAINS_PAT: ${{ secrets.CHAINS_PAT }}
+      EXTERNAL_REPO: ${{ secrets.EXTERNAL_REPO }}
+
+    steps:
+      - name: Checkout external repository
+        uses: actions/checkout@v4
+        with:
+          repository: axelarnetwork/${{ secrets.EXTERNAL_REPO }}
+          path: ${{ secrets.EXTERNAL_REPO }}
+          token: ${{ secrets.CHAINS_PAT }}
+
+      - name: ls
+        run: cd ${{ secrets.EXTERNAL_REPO }}; ls -la README.md
